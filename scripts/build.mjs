@@ -1,0 +1,1 @@
+import { cp, mkdir } from 'node:fs/promises'; import { join } from 'node:path'; await mkdir('dist', { recursive: true }); for (const file of ['manifest.json', 'src/sidepanel.html', 'src/sidepanel.css']) await cp(file, join('dist', file.split('/').pop()));

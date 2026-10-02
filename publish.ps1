@@ -1,0 +1,10 @@
+$ErrorActionPreference = 'Stop'
+git config --local http.sslbackend openssl
+$env:GH_CONFIG_DIR = Join-Path $PSScriptRoot '.gh'
+if (-not (Test-Path (Join-Path $env:GH_CONFIG_DIR 'hosts.yml'))) { throw "GitHub CLI is not authenticated for this project. Run: `$env:GH_CONFIG_DIR='$env:GH_CONFIG_DIR'; gh auth login -h github.com --web" }
+git config --local --unset-all credential.helper 2>$null
+git config --local --add credential.helper ''
+git config --local --add credential.helper '!gh auth git-credential'
+if (-not (git remote get-url origin 2>$null)) { git remote add origin 'https://github.com/1942853632/openapi-lens.git' }
+Write-Host 'Authenticate with GitHub when prompted. Never put a token in this script.'
+git push -u origin main
