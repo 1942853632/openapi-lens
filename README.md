@@ -2,6 +2,10 @@
 
 OpenAPI Lens is a local-only Chrome side-panel extension that turns a raw OpenAPI or Swagger document into an explainable contract-quality report.
 
+## Interview-ready engineering story
+
+The core is a deterministic analyzer with a browser adapter around it. A reviewer can inspect the same JSON input, reproduce the score, and copy a line-item report into a contract review. The design intentionally avoids a hosted backend and model dependency so the demo works with private API documents.
+
 ## Features
 
 - Extracts paths, HTTP methods, operation IDs, parameters and response codes
@@ -20,6 +24,13 @@ pnpm build
 ```
 
 Load `dist/` from `chrome://extensions`, open a raw `openapi.json` or Swagger document, and click **Analyze** in the side panel.
+
+## Repository map
+
+- `src/analyzer.ts`: pure contract rules and Markdown export
+- `src/content.ts`: page extraction adapter
+- `src/sidepanel.ts`: Chrome UI state and actions
+- `tests/analyzer.test.ts`: regression coverage for the rule engine
 
 On Windows, future pushes can use `.\publish.ps1`; credentials stay in the ignored project-local `.gh/` directory.
 
